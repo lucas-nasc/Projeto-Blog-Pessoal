@@ -35,6 +35,14 @@ public class PostagemController {
 	public ResponseEntity<List<Postagem>> getAll(){
 		return ResponseEntity.ok(postagemRepository.findAll());
 	}
+	
+	@GetMapping("/{id}")
+    public ResponseEntity<Postagem> getById(@PathVariable Long id){
+        return postagemRepository.findById(id)
+            .map(resposta -> ResponseEntity.ok(resposta))
+            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+	
 	//pega GET
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
