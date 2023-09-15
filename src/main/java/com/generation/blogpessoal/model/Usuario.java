@@ -32,7 +32,7 @@ public class Usuario {
 	private String usuario;
 	
 	@NotBlank(message = "O atributo é obrigatorio")
-	@Size(min =8, message = "a senha tem que ter no minimo 8 caracteres")
+	@Size( message = "a senha tem que ter no minimo 8 caracteres")
 	private String senha;
 	
 	@Size(max = 4000,message = "O link da foto inserida não pode passar dos 4000 caracteres")
@@ -41,6 +41,28 @@ public class Usuario {
 	@OneToMany(fetch = FetchType.LAZY,mappedBy="usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
+	
+	
+// Podemos apagar as anotações do metodo construtor, pois não é obrigatorio mante-las no codigo, pois ja foi digitado na criação da Entidade acima
+	public Usuario(Long id, @NotBlank(message = "O atributo é obrigatorio") String nome,
+			@NotBlank(message = "O atributo é obrigatorio") @Email(message = "O atributo usuario tem que receber um e-mail valido") String usuario,
+			@NotBlank(message = "O atributo é obrigatorio") @Size(min = 8, message = "a senha tem que ter no minimo 8 caracteres") String senha,
+			@Size(max = 4000, message = "O link da foto inserida não pode passar dos 4000 caracteres") String foto,
+			List<Postagem> postagem) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+		this.postagem = postagem;
+	}
+	
+	
+	
+	public Usuario() {}
+
+
 
 	public Long getId() {
 		return id;
